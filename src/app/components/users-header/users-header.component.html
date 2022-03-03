@@ -1,0 +1,56 @@
+<ul class="nav d-flex justify-content-around  align-items-center p-2 bg-primary bg-muted">
+  <li class="nav-item">
+    <span class="navbar-brand text-white">Users</span>
+  </li>
+  <li class="nav-item">
+    <!-- Button trigger modal -->
+
+    <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal">Add User</button>
+
+
+    <!-- Modal -->
+    <div #modalBody class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-primary" id="exampleModalLabel">Add New User</h5>
+            <button #closeModal type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body">
+
+            <form [formGroup]="addUserFormGroup" (ngSubmit)="addNewUser()">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Name</label>
+                <input formControlName="name" type="email" class="form-control" id="exampleInputEmail1"
+                  aria-describedby="emailHelp" placeholder="Enter email">
+                <span class="error"
+                  *ngIf="addUserFormGroup.controls['name'].errors?.['required'] && addUserFormGroup.controls['name'].dirty">Required</span>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Email</label>
+                <input formControlName="email" type="email" class="form-control" id="exampleInputPassword1"
+                  placeholder="Email">
+                <span class="error"
+                  *ngIf="addUserFormGroup.controls['email'].errors?.['required'] && addUserFormGroup.controls['email'].dirty">Required</span>
+                <span class="error" *ngIf="addUserFormGroup.controls['email'].errors?.['pattern']">Please Enter a Valid
+                  Email</span>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputNumber1">Number</label>
+                <input formControlName="number" type="text" class="form-control" id="exampleInputNumber1"
+                  placeholder="Number">
+                <span class="error"
+                  *ngIf="addUserFormGroup.controls['number'].errors?.['required'] && addUserFormGroup.controls['number'].dirty">Required</span>
+                <span class="error" *ngIf="addUserFormGroup.controls['number'].errors?.['pattern']">Please Enter a Valid
+                  Phone</span>
+              </div>
+              <button type="submit" class="btn btn-primary w-100 mt-2">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+
+</ul>

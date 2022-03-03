@@ -1,0 +1,15 @@
+<ul *ngIf="isLoaded" class="nav d-flex justify-content-around  align-items-center p-2 bg-primary">
+    <li class="nav-item">
+      <span class="navbar-brand text-white">{{user.name}}</span>
+    </li>
+    <li class="nav-item">
+      <span class="navbar-brand text-white">{{user.email}}</span>
+      <br>
+      <span class="navbar-brand text-white">{{user.phone}}</span>
+    </li>
+    <li class="nav-item">
+      <span class="navbar-brand text-white">Addrees</span>
+      <br>
+      <span class="navbar-brand text-white">{{user.address.street +" "+ user.address.suite +" "+user.address.city}}</span>
+    </li>
+  </ul>

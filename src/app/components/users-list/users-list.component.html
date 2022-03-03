@@ -1,0 +1,91 @@
+<app-users-header (userAddes)="userAdded($event)"></app-users-header>
+<table class="table table-hover table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Number</th>
+        <th scope="col">Address</th>
+        <th scope="col">Delete</th>
+        <th scope="col">Update</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users"  [routerLink]="['/user',user.id]" [ngStyle]="{'cursor':'pointer'}">  
+              <th scope="row">{{user.id}}</th>
+              <td>{{user.name}}</td>
+              <td>{{user.email}}</td>
+              <td>{{user.phone}}</td>
+              <td>{{user.address.street +" "+ user.address.suite +" "+user.address.city}}</td>
+              <td><button (click)="showDeletedModal(user.id,$event)" data-bs-toggle="modal" data-bs-target="#confirmationModal" class="btn btn-outline-danger">Delete</button></td>
+              <td><button class="btn btn-outline-primary" (click)="updateHandler($event, user)" data-bs-toggle="modal" data-bs-target="#updateModal">Update</button></td>
+          </tr>
+    
+    </tbody>
+  </table>
+  <div class="modal" tabindex="-1" id="confirmationModal" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger">DELETE USERS</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are You Sure To delete this User ? </p>
+        </div>
+        <div class="modal-footer">
+          <button #closeDeletedModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button (click)="deleteHandler()" type="button" class="btn btn-danger">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  
+
+
+  <!-- Modal -->
+  <div #modalBody class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
+          <button #closeModal type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <form [formGroup]="updateUserGroup" (ngSubmit)="updateUser()">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Name</label>
+              <input formControlName="name" type="email" class="form-control" id="exampleInputEmail1"
+                aria-describedby="emailHelp" placeholder="Enter email">
+              <span class="error"
+                *ngIf="updateUserGroup.controls['name'].errors?.['required'] && updateUserGroup.controls['name'].dirty">Required</span>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Email</label>
+              <input formControlName="email" type="email" class="form-control" id="exampleInputPassword1"
+                placeholder="Email">
+              <span class="error"
+                *ngIf="updateUserGroup.controls['email'].errors?.['required'] && updateUserGroup.controls['email'].dirty">Required</span>
+              <span class="error" *ngIf="updateUserGroup.controls['email'].errors?.['pattern']">Please Enter a Valid
+                Email</span>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputNumber1">Number</label>
+              <input formControlName="number" type="text" class="form-control" id="exampleInputNumber1"
+                placeholder="Number">
+              <span class="error"
+                *ngIf="updateUserGroup.controls['number'].errors?.['required'] && updateUserGroup.controls['number'].dirty">Required</span>
+              <span class="error" *ngIf="updateUserGroup.controls['number'].errors?.['pattern']">Please Enter a Valid
+                Phone</span>
+            </div>
+            <input type="hidden" formControlName="id">
+            <button type="submit" class="btn btn-primary w-100 mt-2">Update</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
